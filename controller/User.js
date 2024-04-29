@@ -9,6 +9,22 @@ class UserController{
             return res.status(500).send({ message: error.message })
         }
     }
+
+    static async getById(req, res){
+        const { id } = req.params;
+
+        try {
+            const user = await User.findById(id);
+            if(!user) return res.status(404).send({ message: "User not found" });
+            return res.status(200).send(user)
+        } catch (error){
+            return res.status(500).send({ message: error.message })
+        }
+    }
+
+    static async create(req, res){
+        const user = await User.create()
+    }
 }
 
 module.exports = UserController;
